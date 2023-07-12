@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Dashboard</title>
+    <style>
+        body {
+            background-color: #00BFB2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .top {
+            background-color: #028090;
+            height: 60px;
+            width: 700px;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .cent {
+            background-color: #028090;
+            width: 900px;
+            height: 500px;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cent button {
+            padding: 12px 30px;
+            border-radius: 30px;
+            background-color: #00BFB2;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+            outline: none;
+            font-weight: bold;
+        }
+
+        .cent button:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cent button:nth-child(1) {
+            animation: fadeIn 0.5s ease-in-out 0.2s forwards;
+        }
+
+        .cent button:nth-child(2) {
+            animation: fadeIn 0.5s ease-in-out 0.4s forwards;
+        }
+
+        .cent button:nth-child(3) {
+            animation: fadeIn 0.5s ease-in-out 0.6s forwards;
+        }
+
+        .cent button:nth-child(4) {
+            animation: fadeIn 0.5s ease-in-out 0.8s forwards;
+        }
+        .logobord {
+            height: 100px;
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <h1>Welcome {{username}} to the Admin Panel</h1>
+    </div>
+    <div class="cent">
+        <button onclick="location.href='/useraccounts'">User Accounts</button>
+        <button onclick="location.href='/activetickets'">Active Tickets</button>
+        <button onclick="location.href='/oldtickets'">Old Tickets</button>
+        <button onclick="location.href='/statistics'">Team Statistics</button>
+    </div>
+
+<div class="logobord">
+    <img src="{{ url_for('static', filename='H.png') }}" alt="Logo">
+</div>
+</body>
+</html>

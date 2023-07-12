@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+    body{
+        background-color: #00BFB2;
+    }
+    .box{
+        background-color: #D8D4D5;
+        height: 100px;
+        width: 500px;
+        border-radius: 25px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        color: black;
+        justify-content: center;
+        display: flex;
+        content: fixed;
+        align-items: center;
+        margin: 100px auto;
+        opacity: 100%;
+        border-width: 2px;
+        border-color: black;
+    }
+    .logintext{
+        background-color: #D8D4D5;
+        height: 100px;
+        width: 500px;
+        border-radius: 25px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        color: black;
+        justify-content: center;
+        display: flex;
+        content: fixed;
+        align-items: center;
+        margin: -140px auto;
+        opacity: 100%;
+        z-index: 2;
+        border-width: 2px;
+        border-color: black;
+    }
+    .loginbox{
+        background-color: #D8D4D5;
+        height: 300px;
+        width: 500px;
+        border-radius: 25px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        color: black;
+        justify-content: center;
+        display: flex;
+        content: fixed;
+        align-items: center;
+        margin: 150px auto;
+        opacity: 100%;
+        z-index: 2;
+        border-width: 2px;
+        border-color: black;
+        animation: fall 1s ease-in-out;
+    }
+input[type="text"],
+input[type="password"] {
+  /* Add your desired styles here */
+  background-color: #F5F5F5;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+  border-color: #028090;
+  border-width: 2px;
+  height: 50px;
+  width: 400px;
+  animation: fall 1s ease-in-out;
+}
+button[type="submit"]{
+    border-radius: 5px;
+    background-color: #00BFB2;
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+    animation: fall 1s ease-in-out;
+}
+.rip{
+    background-color: #D8D4D5;
+        height: 100px;
+        width: 500px;
+        border-radius: 25px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        color: black;
+        justify-content: center;
+        display: flex;
+        content: fixed;
+        align-items: center;
+        margin: -100px auto;
+        opacity: 100%;
+        z-index: 2;
+        border-width: 2px;
+        border-color: black;
+        animation: fall2 0.8s ease-in-out;
+        opacity: 90%;
+        color: black;
+}
+.logobord {
+  height: 100px;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@keyframes fall2 {
+            0% {
+                transform: translateY(-400%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+@keyframes fall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+</style>
+</head>
+<body>
+    <div class="body">
+        <div class="box">
+            <h1>Welcome to IT Ticket Support</h1>
+        </div>
+    </div>
+    <div class="logintext">
+        <h2>Please Log in.</h2>
+    </div>
+    <div class="loginbox">
+        <form action="{{ url_for('authenticate') }}" method="POST">
+            <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required><br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div class="rip">
+        <p>If you have forgotten your password or don't have one, please contact an administrator.</p>
+    </div>
+    <div class="logobord">
+        <img src="{{ url_for('static', filename='H.png') }}" alt="Logo">
+    </div>
+</body>
+</html>

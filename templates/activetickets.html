@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F0F0;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+        
+        .ticket-card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .ticket-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+        
+        .ticket-description {
+            font-size: 16px;
+            color: #555555;
+            margin-bottom: 20px;
+        }
+        
+        .ticket-note {
+            font-size: 14px;
+            color: #888888;
+            margin-bottom: 10px;
+        }
+        
+        .ticket-status {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-start; /* Align buttons to the left */
+            margin-top: 10px; /* Add some space between buttons and ticket status */
+        }
+        
+        .action-button {
+            margin-right: 10px; /* Add some space between buttons */
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: #00BFB2;
+            color: #FFFFFF;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background-color: #009c8c;
+        }
+        
+        .action-button:active {
+            background-color: #00796f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ticket Management System</h1>
+
+    {% for ticket in tickets %}
+    <div class="ticket-card" data-ticket-id="{{ ticket.id }}">
+        <div class="ticket-title">{{ ticket.title }}</div>
+        <div class="ticket-description">{{ ticket.description }}</div>
+        <div class="ticket-note">
+            Admin Note: {{ ticket.admin_note }}
+            <br>
+            <button class="action-button" onclick="editNote('{{ ticket.id }}')">Edit Note</button>
+        </div>
+        <div class="ticket-status">
+            Status: {{ ticket.status }}
+            <br>
+            {% if ticket.status == 'pending' %}
+                <button class="action-button" onclick="updateStatus('{{ ticket.id }}', 'in progress')">Mark as In Progress</button>
+                <button class="action-button" onclick="updateStatus('{{ ticket.id }}', 'completed')">Mark as Completed</button>
+            {% elif ticket.status == 'in progress' %}
+                <button class="action-button" onclick="updateStatus('{{ ticket.id }}', 'pending')">Mark as Pending</button>
+                <button class="action-button" onclick="updateStatus('{{ ticket.id }}', 'completed')">Mark as Completed</button>
+            {% else %}
+                <button class="action-button" onclick="updateStatus('{{ ticket.id }}', 'pending')">Mark as Pending</button>
+                <button class="action-button" onclick="updateStatus('{{ ticket.id }}', 'in progress')">Mark as In Progress</button>
+            {% endif %}
+            <button class="action-button" onclick="deleteTicket('{{ ticket.id }}')">Delete</button>
+        </div>
+    </div>
+    {% endfor %}
+
+    <script>
+        function editNote(ticketId) {
+            var newNote = prompt('Enter a new note:');
+            if (newNote !== null) {
+                // Send an AJAX request to update the ticket note
+                // You can use an appropriate endpoint on the server side to handle this request
+                // For example: /update_note
+                fetch('/update_note', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ticketId: ticketId, note: newNote })
+                })
+                .then(function(response) {
+                    // Handle the response
+                    if (response.ok) {
+                        // Update the UI or display a success message
+                    } else {
+                        console.log('Error updating note');
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error updating note:', error);
+                });
+            }
+        }
+
+        function updateStatus(ticketId, status) {
+            // Send an AJAX request to update the ticket status
+            // You can use an appropriate endpoint on the server side to handle this request
+            // For example: /update_status
+            fetch('/update_status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ticketId: ticketId, status: status })
+            })
+            .then(function(response) {
+                // Handle the response
+                if (response.ok) {
+                    // Reload the page to reflect the updated ticket status
+                    location.reload();
+                } else {
+                    console.log('Error updating ticket status');
+                }
+            })
+            .catch(function(error) {
+                console.log('Error updating ticket status:', error);
+            });
+        }
+
+        function deleteTicket(ticketId) {
+            // Send an AJAX request to delete the ticket
+            // You can use an appropriate endpoint on the server side to handle this request
+            // For example: /delete_ticket
+            fetch('/delete_ticket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ticketId: ticketId })
+            })
+            .then(function(response) {
+                // Handle the response
+                if (response.ok) {
+                    // Reload the page to reflect the updated ticket list
+                    location.reload();
+                } else {
+                    console.log('Error deleting ticket');
+                }
+            })
+            .catch(function(error) {
+                console.log('Error deleting ticket:', error);
+            });
+        }
+    </script>
+</body>
+</html>

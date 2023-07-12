@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a ticket</title>
+    <style>
+        body {
+            background-color: #00BFB2;
+        }
+
+        .mainb {
+            background-color: black;
+            min-height: 700px;
+            min-width: 70%;
+            max-width: 700px;
+            border-radius: 25px;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            margin: 100px auto;
+            opacity: 100%;
+            border-width: 2px;
+            border-color: black;
+            position: relative;
+            padding-bottom: 60px; /* Added padding to prevent clipping */
+            background-repeat: no-repeat;
+        }
+
+        .ticket-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fall 0.8s ease-in-out;
+        }
+
+        .ticket-form input[type="text"],
+        .ticket-form textarea,
+        .ticket-form select {
+            background-color: #F5F5F5;
+            border: 1px solid #CCCCCC;
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 400px;
+            animation: fall 0.8s ease-in-out;
+        }
+
+        .ticket-form button[type="submit"] {
+            border-radius: 5px;
+            background-color: #00BFB2;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            animation: fall 0.8s ease-in-out;
+        }
+
+        .custom-select {
+            appearance: none; /* Removes default styles */
+        }
+
+        .custom-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #00BFB2; /* Example of focus style */
+        }
+
+        .logobord {
+            height: 100px;
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mainb">
+        <h1 class="ticket-heading">Submit a Ticket</h1>
+        <div class="ticket-form">
+            <form action="/submit_ticket" method="POST">
+                <input type="text" id="title" name="title" required placeholder="What is the issue?"><br>
+            
+                <textarea id="description" name="description" required placeholder="Description of the issue."></textarea><br>
+            
+                <button type="submit">Submit</button>
+            </form>
+            
+            </form>
+            {% if session['username'] in users and users[session['username']]['role'] == 'admin' %}
+                <form action="{{ url_for('admin') }}" method="GET" class="admin-button">
+                    <button type="submit">Admin Dashboard</button>
+                </form>
+            {% endif %}
+            <form action="/logout" method="GET" class="logout-button">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
